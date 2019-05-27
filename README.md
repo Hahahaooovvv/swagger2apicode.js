@@ -13,7 +13,7 @@ yarn add swagger2apicode
 ## 使用方式
 在当前项目根目录下执行命令行  
 ```
-node ./index.js -i url http://localhost:59330/swagger/v1/swagger.json 
+node ./node_modules/swagger2apicode/index.js -i url http://localhost:59330/swagger/v1/swagger.json 
 ```
 #### 参数  
 |   参数   | 必填 |     默认      |                          注解                          |
@@ -25,6 +25,6 @@ node ./index.js -i url http://localhost:59330/swagger/v1/swagger.json
 
 #### 完整使用
 ```
-node ./index.js -i url http://localhost:59330/swagger/v1/swagger.json outDir ./exmple fileName userApi rc request
+node ./node_modules/swagger2apicode/index.js -i url http://localhost:59330/swagger/v1/swagger.json outDir ./src/request
 ```
 
