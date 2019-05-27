@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node gen/test",
-    "example": "node ./index.js -i url http://localhost:59330/swagger/v1/swagger.json outDir ./exmple"
+    "example": "node ./index.js -i url https://lhj.acequant.cn/aqmanager/v2/api-docs outDir ./example"
   },
   "author": "644365603@qq.com",
   "license": "ISC",

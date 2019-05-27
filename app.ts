@@ -112,16 +112,3 @@ ${paramsType.join(",\n")}
         })
 }
 export default GetData;
-
-// interface Isdfasf {
-//     /** 奥斯卡大家好好*/
-//     "str-key": string,
-//     'ttt': string
-// }
-
-// const method = (props: {
-// /** 奥斯卡大家好好*/'str-key': string,
-// /** 奥斯卡大家好好丫丫*/'ttt': string
-// }): AxiosPromise<IinterfaceResult> => "123" as AxiosPromise<>;
-
-// method({"str-key":""})

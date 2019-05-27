@@ -37,7 +37,7 @@ export default class AnalysisHelper {
      * @param name 
      */
     DeCodeName(name: string) {
-        return name.replace(/\[|\]|\{|\}/g, "");
+        return name.replace(/\[|\]|\{|\}|\«|\»|\./g, "");
     }
 
 
@@ -55,7 +55,7 @@ export default class AnalysisHelper {
 
     AnalysisSingle(obj: any) {
         let result: any = {};
-        switch (obj.type) {
+        switch (obj && obj.type) {
             case "object":
                 return this.AnalysisObject(obj);
             case "array":
@@ -76,11 +76,11 @@ export default class AnalysisHelper {
             case "boolean":
                 return this.DecodeType(obj, 'boolean'); // this.GenType === "d.ts" ? 'boolean' : "";
         }
-        if (obj.$ref) {
+        if (obj && obj.$ref) {
             const data = this.ApiObj[obj.$ref.replace("#/definitions/", "")];
             result = this.AnalysisSingle(data);
         }
-        return result;
+        return "any";
     }
 
     DecodeType(obj: any, type: string) {
@@ -140,7 +140,7 @@ export default class AnalysisHelper {
                 if (newObj[p]["$ref"]) {
                     const pathList = newObj[p]["$ref"].split("/");
                     pathList.reverse();
-                    result[`/** ${newObj[p].description}*/'${p}'`] = `I${pathList[0]}Model` // this.AnalysisSingle(newObj[p]);
+                    result[`/** ${newObj[p].description}*/'${p}'`] = `I${this.DeCodeName(pathList[0])}Model` // this.AnalysisSingle(newObj[p]);
                 }
                 else {
                     result[`/** ${newObj[p].description}*/'${p}'`] = this.AnalysisSingle(newObj[p]);

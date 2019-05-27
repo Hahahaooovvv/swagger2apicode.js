@@ -22,6 +22,8 @@ program.parse(process.argv);
 if (program.init) {
     // url fileName outDir rc
     const argv = GetArgv(process.argv);
+    console.log(process.argv)
+    console.log(argv)
     if (!argv.url) {
         console.log("请输入swagger地址");
     }
