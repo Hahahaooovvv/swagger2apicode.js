@@ -2,3 +2,4 @@ node_modules/
 *.js
 gen/
 *.d.ts
+*.lock

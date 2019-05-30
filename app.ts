@@ -61,7 +61,7 @@ function GetData(url: string, requestClass = "./request", outPath = "./", fileNa
                         // 创建实体
                         const model =
                             `
-interface ${Iinterface} {
+export interface ${Iinterface} {
 ${paramsType.join(",\n")}
 }
 \n
@@ -71,7 +71,7 @@ ${paramsType.join(",\n")}
                         let resultModelName = "any";
                         if (singleMehtodObj.responses["200"].schema && singleMehtodObj.responses["200"].schema.$ref) {
                             resultModelName = (new AnalysisHelper(obj.definitions).DeCodeName(
-                                `export I${singleMehtodObj.responses["200"].schema.$ref.replace('#/definitions/', "")}Model`
+                                `I${singleMehtodObj.responses["200"].schema.$ref.replace('#/definitions/', "")}Model`
                             ));
                         }
                         let path = obj.basePath + urlSingle;

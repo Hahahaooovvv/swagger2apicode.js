@@ -53,7 +53,7 @@ export default class AnalysisHelper {
         }
     }
 
-    AnalysisSingle(obj: any) {
+    AnalysisSingle(obj: any): string {
         let result: any = {};
         switch (obj && obj.type) {
             case "object":
@@ -62,20 +62,20 @@ export default class AnalysisHelper {
                 if (obj.items.$ref) {
                     let pathList = obj.items.$ref.split("/");
                     pathList.reverse();
-                    result = "I" + pathList[0] + "Model[]"
+                    return "I" + pathList[0] + "Model[]"
                 }
                 else {
-                    result = `${this.AnalysisSingle(obj.items)}[]`;
+                    return `${this.AnalysisSingle(obj.items)}[]`;
                 }
                 break;
             case "integer":
-                return this.DecodeType(obj, 'number'); //this.GenType === "d.ts" ? 'number' : ""
+                return this.DecodeType(obj, 'number')!; //this.GenType === "d.ts" ? 'number' : ""
             case "number":
-                return this.DecodeType(obj, 'number');
+                return this.DecodeType(obj, 'number')!;
             case "string":
-                return this.DecodeType(obj, 'string'); // this.GenType === "d.ts" ? 'string' : "";
+                return this.DecodeType(obj, 'string')!; // this.GenType === "d.ts" ? 'string' : "";
             case "boolean":
-                return this.DecodeType(obj, 'boolean'); // this.GenType === "d.ts" ? 'boolean' : "";
+                return this.DecodeType(obj, 'boolean')!; // this.GenType === "d.ts" ? 'boolean' : "";
         }
         if (obj && obj.$ref) {
             const data = this.ApiObj[obj.$ref.replace("#/definitions/", "")];
