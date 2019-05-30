@@ -15,7 +15,7 @@ export default class AnalysisHelper {
             // this.AnalysisResult(data[p]);
 
 
-            const name = `interface I${this.DeCodeName(p)}Model`;
+            const name = `export interface I${this.DeCodeName(p)}Model`;
             if (!list.find(p => p === name)) {
                 list.push(name);
                 return (
@@ -60,8 +60,9 @@ export default class AnalysisHelper {
                 return this.AnalysisObject(obj);
             case "array":
                 if (obj.items.$ref) {
-                    const data = this.ApiObj[obj.items.$ref.replace("#/definitions/", "")];
-                    result = `${this.AnalysisSingle(data)}[]`;
+                    let pathList = obj.items.$ref.split("/");
+                    pathList.reverse();
+                    result = "I" + pathList[0] + "Model[]"
                 }
                 else {
                     result = `${this.AnalysisSingle(obj.items)}[]`;

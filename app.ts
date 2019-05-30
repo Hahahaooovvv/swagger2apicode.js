@@ -71,11 +71,11 @@ ${paramsType.join(",\n")}
                         let resultModelName = "any";
                         if (singleMehtodObj.responses["200"].schema && singleMehtodObj.responses["200"].schema.$ref) {
                             resultModelName = (new AnalysisHelper(obj.definitions).DeCodeName(
-                                `I${singleMehtodObj.responses["200"].schema.$ref.replace('#/definitions/', "")}Model`
+                                `export I${singleMehtodObj.responses["200"].schema.$ref.replace('#/definitions/', "")}Model`
                             ));
                         }
                         let path = obj.basePath + urlSingle;
-                        path = path.replace(/^\/\/*/g, "");
+                        path = "/" + path.replace(/^\/\/*/g, "");
                         path = path.replace("{", "${params.");
                         if (methodSingle === "get" || methodSingle === "delete") {
                             const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}('${path}', {...(config as any), params}) as AxiosPromise<${resultModelName}>`;
