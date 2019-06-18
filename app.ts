@@ -78,11 +78,11 @@ ${paramsType.join(",\n")}
                         path = "/" + path.replace(/^\/\/*/g, "");
                         path = path.replace("{", "${params.");
                         if (methodSingle === "get" || methodSingle === "delete") {
-                            const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}('${path}', {...(config as any), params}) as AxiosPromise<${resultModelName}>`;
+                            const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}(\`${path}\`, {...(config as any), params}) as AxiosPromise<${resultModelName}>`;
                             methodObj[singleMehtodObj["operationId"]] = methosString;
                         }
                         else {
-                            const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}('${path}', params,config as any) as AxiosPromise<${resultModelName}>`;
+                            const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}(\`${path}\`, params,config as any) as AxiosPromise<${resultModelName}>`;
                             methodObj[singleMehtodObj["operationId"]] = methosString;
                         }
                     }
