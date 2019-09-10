@@ -17,6 +17,7 @@ function GetData(url: string, requestClass = "./request", outPath = "./", fileNa
             ]
             let setData = stringList.join("\n");
             const methodObj: any = {};
+            const methodFilter: any = {};
             const obj = (p);
             // 开始解析
             // 将所有url解析成为一个list能遍历
@@ -77,19 +78,24 @@ ${paramsType.join(",\n")}
                         let path = obj.basePath + urlSingle;
                         path = "/" + path.replace(/^\/\/*/g, "");
                         path = path.replace("{", "${params.");
+
+                        methodFilter[`'${path}'`] || (methodFilter[`'${path}'`] = {});
                         if (methodSingle === "get" || methodSingle === "delete") {
                             const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}(\`${path}\`, {...(config as any), params}) as AxiosPromise<${resultModelName}>`;
                             methodObj[singleMehtodObj["operationId"]] = methosString;
+                            methodFilter[`'${path}'`][methodSingle] = `${obj.basePath.replace("/", "")}Apis` + "." + singleMehtodObj["operationId"]
                         }
                         else {
                             const methosString = `(params:${Iinterface},config:SetRequestConfig={}):AxiosPromise<${resultModelName}> =>  instance.${methodSingle}(\`${path}\`, params,config as any) as AxiosPromise<${resultModelName}>`;
                             methodObj[singleMehtodObj["operationId"]] = methosString;
+                            methodFilter[`'${path}'`][methodSingle] = `${obj.basePath.replace("/", "")}Apis` + "." + singleMehtodObj["operationId"]
                         }
                     }
                 })
             });
             setData += `const ${obj.basePath.replace("/", "")}Apis =${JSON.stringify(methodObj, null, 2).replace(/\"/g, "")};
-        export default ${obj.basePath.replace("/", "")}Apis`;
+        export default ${obj.basePath.replace("/", "")}Apis;\r\n`;
+            setData += `export const ${obj.basePath.replace("/", "")}ApisFilter=${JSON.stringify(methodFilter, null, 2).replace(/\"/g, "")}`
             let pathName = "";
             pathName = outPath + "/" + (fileName ? fileName + ".ts" : `${obj.basePath.replace("/", "")}Apis.ts`);
 
